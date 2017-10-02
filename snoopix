@@ -1,0 +1,37 @@
+#!/bin/sh
+
+INTERACTIVE=True
+ASK_TO_REBOOT=0
+BLACKLIST=/etc/modprobe.d/raspi-blacklist.conf
+CONFIG=/boot/config.txt
+MyPath=./
+
+#
+# Interactive use loop
+#
+. ./lib/snoopix-calcs
+
+# set -x
+while true; do
+  FUN=$(whiptail --title "Menú Principal - Snoopix" --menu "Snoopix" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Salir --ok-button Seleccionar \
+    "1 Sistema" "Servidor robusto, estable y muy popular y extenido" \
+    "2 Servicios" "Servidor más liviano y óptimo" \
+    "3 Backup" "Servidor moderno basado en javascript" \
+    "4 Varnish" "Caché acelerador de carga" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    exit 0
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      1\ *) source ./services/snoopix-services ;;
+      2\ *) do_change_pass ;;
+      3\ *) do_boot_behaviour ;;
+      4\ *) do_internationalisation_menu ;;
+      *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;
+    esac || whiptail --msgbox "[ERROR] Hay un error tratando de cargar el servicio $FUN" 20 60 1
+  else
+    exit 1
+  fi
+  # set +x
+done

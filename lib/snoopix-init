@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Script de inicialización de cualquier script, tanto si es invocado como si no.
+
+# Variable de comprobación de invocación. Para ello comprobamos si este script ha sido previamente cargado.
+LOADED=0
+
+#Si ha sido previamente cargado, nos salimos de este script.
+if $LOADED = 1; then
+  return
+fi
+
+#En caso contrario continúa la carga.

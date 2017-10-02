@@ -1,0 +1,32 @@
+#!/bin/sh
+
+
+
+#
+# Interactive use loop
+#
+# calc_wt_size
+# set -x
+while true; do
+  FUN=$(whiptail --title "Administrador de Servicios - Snoopix" --menu "Servicios" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Volver --ok-button Seleccionar \
+    "1 Web" "Servidor robusto, estable y muy popular y extenido" \
+    "2 DNS" "Servidor más liviano y óptimo" \
+    "3 Node.js" "Servidor moderno basado en javascript" \
+    "4 Varnish" "Caché acelerador de carga" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    return
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      1\ *) source ./services/web/snoopix-web ;;
+      2\ *) do_change_pass ;;
+      3\ *) do_boot_behaviour ;;
+      4\ *) do_internationalisation_menu ;;
+      *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;
+    esac || whiptail --msgbox "Hay un error tratando de cargar el servicio $FUN" 20 60 1
+  else
+    exit 1
+  fi
+  # set +x
+done
