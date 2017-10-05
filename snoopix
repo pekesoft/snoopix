@@ -19,7 +19,7 @@ while true; do
  / __| '_ \ / _ \ / _ \| '_ \| \ \/ /
  \__ \ | | | (_) | (_) | |_) | |>  <
  |___/_| |_|\___/ \___/| .__/|_/_/\_\
-                       |_| 
+                       |_|  
 " $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT \
     --cancel-button Salir --ok-button Seleccionar \
     "1 Sistema" "Servidor robusto, estable, muy popular y extenido" \
