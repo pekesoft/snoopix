@@ -14,7 +14,7 @@ MyPath=./
 # set -x
 while true; do
   FUN=$(whiptail --title "Menú Principal - Snoopix" --menu "Snoopix" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Salir --ok-button Seleccionar \
-    "1 Sistema" "Servidor robusto, estable y muy popular y extenido" \
+    "1 Sistema" "Servidor robusto, estable, muy popular y extenido" \
     "2 Servicios" "Servidor más liviano y óptimo" \
     "3 Backup" "Servidor moderno basado en javascript" \
     "4 Varnish" "Caché acelerador de carga" \
@@ -25,7 +25,7 @@ while true; do
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       1\ *) source ./services/snoopix-services ;;
-      2\ *) do_change_pass ;;
+      2\ *) source ./wizards/snoopix-web ;;
       3\ *) do_boot_behaviour ;;
       4\ *) do_internationalisation_menu ;;
       *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;

@@ -2,9 +2,10 @@
 
 while true; do
   FUN=$(whiptail --title "Administrador de Apache - Snoopix" --menu "Administrador de Apache" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Volver --ok-button Seleccionar \
-    "1 Instalar" "Servidor robusto, estable y muy popular y extenido" \
-    "2 Configuración" "Servidor más liviano y óptimo" \
-    "3 Servicios Web" "Servidor moderno basado en javascript" \
+    "1 Administración" "Estado y" \
+    "2 Instalación" "Servidor robusto, estable y muy popular y extenido" \
+    "3 Configuración" "Servidor más liviano y óptimo" \
+    "4 Servicios Web" "Servidor moderno basado en javascript" \
     "4 Administración" "Caché acelerador de carga" \
     3>&1 1>&2 2>&3)
   RET=$?
