@@ -19,11 +19,11 @@ while true; do
  / __| '_ \ / _ \ / _ \| '_ \| \ \/ /
  \__ \ | | | (_) | (_) | |_) | |>  <
  |___/_| |_|\___/ \___/| .__/|_/_/\_\
-                       |_|  
+                       |_|
 " $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT \
     --cancel-button Salir --ok-button Seleccionar \
-    "1 Sistema" "Servidor robusto, estable, muy popular y extenido" \
-    "2 Servicios" "Servidor más liviano y óptimo" \
+    "1 Sistema" "Administración y mantenimiento del Sistema Operativo" \
+    "2 Servicios" "Administrador de servicios" \
     "3 Backup" "Servidor moderno basado en javascript" \
     "4 Varnish" "Caché acelerador de carga" \
     3>&1 1>&2 2>&3)

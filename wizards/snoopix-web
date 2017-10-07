@@ -1,6 +1,7 @@
 #!/bin/sh
 
-
+PATH=".."
+. ../lib/snoopix-init
 
 #
 # Interactive use loop
@@ -9,7 +10,7 @@
 # set -x
 while true; do
   FUN=$(whiptail --title "Asistente de instalación de Servicios Web" --checklist \
-"\nA continuación se muestran todos los servicios web disponibles:" 20 78 4 --cancel-button Volver --ok-button Instalar \
+"\nA continuación se muestran todos los servicios web disponibles. Los servicios marcados se instalarán y los desmarcados se desistalarán si estaban previamente instalados." 20 78 4 --cancel-button Volver --ok-button Instalar \
 "1 Apache" "Servidor robusto, estable, muy popular y extenido" ON \
 "2 Nginx" "Servidor más liviano y óptimo" ON \
 "3 Node.js" "Servidor moderno basado en javascript" ON \

@@ -6,8 +6,13 @@
 LOADED=0
 
 #Si ha sido previamente cargado, nos salimos de este script.
-if $LOADED = 1; then
+if [ $LOADED -eq 1 ]; then
   return
 fi
 
 #En caso contrario continúa la carga.
+
+#Cálculos de pantalla.
+. ${PATH}/lib/snoopix-calcs
+
+LOADED=1
