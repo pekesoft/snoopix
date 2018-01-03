@@ -1,10 +1,23 @@
 #!/bin/sh
 
 #----------------------------------------------------------------------
-# Script para la instalación y mantenimiento de Nginx.
+# Script para la instalación y mantenimiento de ResolvConf.
 #----------------------------------------------------------------------
 # Copyright © 2018 by Peke Soft, Ltd. 03-01-2017.
 #----------------------------------------------------------------------
 
 # Cargamos el sistema de inicialización del framework de Snoopix.
 # TODO
+
+# Creación de la marca de instalación
+CreateResolvConfHeader (){
+
+  cat <<- EOF > /etc/snoopix/packages/varnish
+  # Fichero de marca autogenerado por Snoopix.
+	EOF
+
+}
+
+InstallResolvConf (){
+
+}
