@@ -1,0 +1,25 @@
+#!/bin/sh
+
+#----------------------------------------------------------------------
+# Script para ajustar el tamaño de los ficheros de subida.
+#----------------------------------------------------------------------
+# Copyright © 2018 by Peke Soft, Ltd. 08-01-2017.
+#----------------------------------------------------------------------
+
+# Cargamos el sistema de inicialización del framework de Snoopix.
+# TODO
+
+# Método para actualizar el PHP
+UpdatePHP () {
+
+}
+
+# Método para actualizar servicios de NGINX
+UpdateNginx () {
+
+}
+
+# Método para actualizar los servicios de Apache
+UpdateApache () {
+
+}
