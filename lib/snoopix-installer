@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------
+# [ES] Script para la instalación de paquetes en distintas plataformas.
+#----------------------------------------------------------------------
+# Copyright © 2018 by Peke Soft, Ltd. JAN-2018.
+#----------------------------------------------------------------------
+
+#Comprobamos el Sistema Operativo y su versión.
+#TODO
+
+# Comprobación de la existencia de un determinado paquete.
+# Basado en el código de http://www.ubuntu-es.org/node/82817#.WlekwlSdUsk
+CheckPackage () {
+  echo "Introduce el nombre del paquete"
+  read miprograma
+  RESPUESTA=$(dpkg --get-selections | grep -w ${miprograma} | grep -w install)
+  if [ "$RESPUESTA" = "" ]; then
+      echo "NO ESTA INSTALADO"
+      apt -y install ${miprograma}
+  else
+      echo "${miprograma} YA ESTA INSTALADO"
+  fi
+}
+
+Install () {
+
+}
+
+Reinstall () {
+
+}
+
+Remove () {
+
+}

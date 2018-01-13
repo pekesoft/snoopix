@@ -1,10 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
 #----------------------------------------------------------------------
-# Script para la instalación y mantenimiento de Wordpress.
+# Script para la instalación y mantenimiento de Nginx.
 #----------------------------------------------------------------------
-# Copyright © 2018 by Peke Soft, Ltd. JAN-2017.
+# Copyright © 2018 by Peke Soft, Ltd. JAN-2018.
 #----------------------------------------------------------------------
 
 # Cargamos el sistema de inicialización del framework de Snoopix.
 # TODO
+
+RedirectMainsite () {
+server {
+  # URL: Correct way to redirect URL's
+  server_name demo.com;
+  rewrite ^/(.*)$ http://www.demo.com/$1 permanent;
+}
+}
