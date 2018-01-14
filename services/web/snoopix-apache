@@ -1,0 +1,25 @@
+#!/bin/sh
+
+while true; do
+  FUN=$(whiptail --title "Administrador de Apache - Snoopix" --menu "Administrador de Apache" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Volver --ok-button Seleccionar \
+    "1 Administración" "Estado y" \
+    "2 Instalación" "Servidor robusto, estable y muy popular y extenido" \
+    "3 Configuración" "Servidor más liviano y óptimo" \
+    "4 Servicios Web" "Servidor moderno basado en javascript" \
+    "4 Administración" "Caché acelerador de carga" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    return
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      1\ *) do_expand_rootfs ;;
+      2\ *) do_change_pass ;;
+      3\ *) do_boot_behaviour ;;
+      4\ *) do_internationalisation_menu ;;
+      *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;
+    esac || whiptail --msgbox "Hay un error tratando de cargar el servicio $FUN" 20 60 1
+  else
+    exit 1
+  fi
+done

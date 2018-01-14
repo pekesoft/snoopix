@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# Script para analizar una carpeta de entrada que contiene un mismo tipo
+# de ficheros planos de texto, buscar diferencias entre ellos y generar
+# 3 carpetas:
+
+# DIFF  --> diferencias entre ficheros
+# KEY   --> Keyframes entre diferencias
+# CACHE --> Keyframes eliminables para comparación mientras estén disponibles.
+
+# Los ficheros se comprimen luego con ZIP y cuando se pueda formar un
+# paquete se empaqueta con ISO.
+
+rvntxtCheckDiffs () {
+
+  # Primera búsqueda de ficheros fragmentados, comparando nombres similares
+  # Y analizando las diferencias.
+
+  # Basado en el código de https://stackoverflow.com/questions/14500787/comparing-two-files-in-linux-terminal
+  # diff a.txt b.txt > c.diff
+
+  # Comprobamos todos los ficheros entre su anterior y lo guardamos en la
+  # carpeta DIFF
+
+  # Comprobamos todos los ficheros entre 10 anteriores y lo guardamos en la
+  # carpeta DIFF
+
+  # Lo mismo con los 50 anteriores
+
+  # Y a los 100.
+
+  # Creación de los keyframes en la carpeta KEY
+
+}
+
+rvntxtExpandFiles () {
+
+  # Si no existe, lo primero es crear la carpeta de caché
+  if [ ! -d ./rvn-cache]; then
+    mkdir ./rvn-cache
+  fi
+
+  # Buscamos todos los ficheros ZIP y los expandimos a la vez que
+  # los eliminamos.
+  # Basado en el código de http://ecapy.com/comprimir-y-descomprimir-tgz-tar-gz-y-zip-por-linea-de-comandos-en-linux/index.html
+  # Y de http://persoal.citius.usc.es/tf.pena/ASR/Tema_2html/node20.html
+
+  dir="/var/tmp"
+  for file in $dir/*.zip
+  do
+      # unzip archivo.zip
+      # rm -f $file
+  done
+
+  # Lo mismo con los ficheros tar.gz
+  # tar -xzvf archivo.tar.gz
+
+  # tar
+  # tar -xvf paquete.tar
+
+  # gz
+  # gzip -d index.php.gz
+
+}
+
+rvntxtCompressFiles () {
+
+  # Una vez comprobado todo, procesamos los ficheros en la carpeta DIFF
+  # Comprimimos y eliminamos.
+  # zip archivo.zip carpeta
+
+  # Lo mismo en la carpeta KEY
+
+}
+
+rvntxtMakePackage () {
+  # Basado en el código de https://linuxgx.blogspot.com.es/2016/11/crear-archivo-iso-de-una-carpeta-en.html
+  # mkisofs -o nombre-archivo-a-crear.iso ruta-carpeta-o-archivo
+}
+
+rvntxtCleanUp () {
+
+}
+
+rvntxtLog () {
+
+}
+
+## MAIN
+## Selector de parámetros.
+# Basado en el código de https://victorroblesweb.es/2016/08/27/parametros-en-shell-script/
+
+# $0 => contiene el nombre nombre de nuestro script
+# $# => el número de parámetros con los que se ha invocado al shell
+# $n => los parámetros, con n de 1 a 9 (a $#)
+# $$ => el PID de nuestro proceso
+# $* => todos los parámetros menos $0

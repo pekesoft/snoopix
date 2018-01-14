@@ -1,0 +1,10 @@
+#!/bin/sh
+
+#----------------------------------------------------------------------
+# Script para la instalación y mantenimiento de Wordpress.
+#----------------------------------------------------------------------
+# Copyright © 2018 by Peke Soft, Ltd. JAN-2017.
+#----------------------------------------------------------------------
+
+# Cargamos el sistema de inicialización del framework de Snoopix.
+# TODO
