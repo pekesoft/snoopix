@@ -1,22 +1,22 @@
 #!/bin/bash
 
 #----------------------------------------------------------------------
-# Script para la instalación y mantenimiento de Wordpress.
+# Script for Wordpress setup and deployment.
 #----------------------------------------------------------------------
 # Copyright © 2018 by Peke Soft, Ltd. JAN-2018.
 #----------------------------------------------------------------------
 
-# Cargamos el sistema de inicialización del framework de Snoopix.
-# TODO
+# First of all, we need to load the Snoopix framework
+. /srv/snoopix/lib/snoopix-framework
 
-# Procedimiento para crear los archivos de configuración globales en Nginx.
+# Global Nginx configuration files.
 # Basado en el código de http://www.digitalvalley.com/blog/configurar-nginx-para-varios-tipos-de-instalacion-de-wordpress/
 CreateNginxFiles () {
 
   # TODO comprobar existencia directorio.
   mkdir /etc/nginx/wordpress
 
-  # Fichero de configuración general para todos los servicios nginx para wordpress
+  # Global setup file for Nginx WordPress services
   cat > /etc/nginx/wordpress/common.conf << EOF
     # ESSENTIAL : Default file to serve. If the first file isn't found.
     index index.php index.html index.htm;
@@ -82,7 +82,7 @@ EOF
     rewrite ^/sitemap_index\.xml$ /index.php?sitemap=1 last;
     rewrite ^/([^/]+?)-sitemap([0-9]+)?\.xml$ /index.php?sitemap=$1&sitemap_n=$2 last;
 
-    #Yeah! you did it.
+    # Yeah! you did it. ;)
 EOF
 
   # Fichero para la configuración de un Wordpress multisite.

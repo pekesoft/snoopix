@@ -1,4 +1,24 @@
-#!/bin/sh
+#!/bin/bash
+
+#----------------------------------------------------------------------
+# Main Snoopix Script
+#----------------------------------------------------------------------
+# Copyright © 2018 by Peke Soft, Ltd. JAN-2018.
+#----------------------------------------------------------------------
+
+# First of all, we need to load the Snoopix framework
+if [ -f /srv/snoopix/lib/snoopix-framework ]; then
+  . /srv/snoopix/lib/snoopix-framework
+else
+  # Little portion of ANSI colors constants defined in snoopix-framework
+  Red='\033[0;31m'
+  Green='\033[0;32m'
+  NC='\033[0m'
+
+  echo -e "${Red}[ERROR]${NC} Debes instalar previamente el framework de snoopix."
+  echo -e "Ejecuta ${Green}./snoopix-setup.sh${NC}"
+  exit 0
+fi
 
 INTERACTIVE=True
 ASK_TO_REBOOT=0
