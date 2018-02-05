@@ -1,4 +1,10 @@
 #!/bin/bash
 
-#Script para crear un servidor de centralización de Snoopix para
-#simplificar y automatizar las instalaciones corporativas mediante samba.
+# Script para crear un servidor de centralización de Snoopix para
+# simplificar y automatizar las instalaciones corporativas mediante samba.
+# Además crea las estructuras de red.
+
+# 
+CreateNet() {
+
+}

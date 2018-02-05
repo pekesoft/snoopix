@@ -3,68 +3,96 @@
 #----------------------------------------------------------------------
 # Main Snoopix framework script
 #----------------------------------------------------------------------
-# Copyright © 2018 by Peke Soft, Ltd. JAN-2018.
+# Copyright © 2018 by Peke Soft, Ltd. Licensed under GPL3
+#----------------------------------------------------------------------
+# Coded & Designed by ChuxMan (chuxman@pekesoft.com)
 #----------------------------------------------------------------------
 
-# Script de inicialización de cualquier script, tanto si es invocado como si no.
-
-# Variable de comprobación de invocación. Para ello comprobamos si este script ha sido previamente cargado.
-LOADED=0
-
-#Si ha sido previamente cargado, nos salimos de este script.
-if [ $LOADED -eq 1 ]; then
+# Check if there's a previous framework load
+if [ $Snoopix -eq 1 ]; then
   return
 fi
 
-#En caso contrario continúa la carga.
+#----------------------------------------------------------------------
+# Screen Calcs for Whiptail. Based on raspi-config
+#----------------------------------------------------------------------
+CalcScreen() {
 
-#Cálculos de pantalla.
-. ${PATH}/lib/snoopix-calcs
+  # NOTE: it's tempting to redirect stderr to /dev/null, so supress error
+  # output from tput. However in this case, tput detects neither stdout or
+  # stderr is a tty and so only gives default 80, 24 values
 
-LOADED=1
+  ScreenHeight=17
+  ScreenWidth=$((tput cols))
+
+  if [ -z "$ScreenWidth" ] || [ "$ScreenWidth" -lt 60 ]; then
+    ScreenWidth=80
+  fi
+  if [ "$ScreenWidth" -gt 178 ]; then
+    ScreenWidth=120
+  fi
+
+  MenuHeight=$(($ScreenWidth-7))
+
+}
 
 #----------------------------------------------------------------------
 # ANSI colors constants for terminal
 # Based on https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
 #----------------------------------------------------------------------
-# Black        0;30     Dark Gray     1;30
-# Red          0;31     Light Red     1;31
-# Green        0;32     Light Green   1;32
-# Brown/Orange 0;33     Yellow        1;33
-# Blue         0;34     Light Blue    1;34
-# Purple       0;35     Light Purple  1;35
-# Cyan         0;36     Light Cyan    1;36
-# Light Gray   0;37     White         1;37
+AnsiColors() {
 
-# And then use them like this in your script:
+  #----------------------------------------------------------------------
+  # Black        0;30     Dark Gray     1;30
+  # Red          0;31     Light Red     1;31
+  # Green        0;32     Light Green   1;32
+  # Brown/Orange 0;33     Yellow        1;33
+  # Blue         0;34     Light Blue    1;34
+  # Purple       0;35     Light Purple  1;35
+  # Cyan         0;36     Light Cyan    1;36
+  # Light Gray   0;37     White         1;37
+  #----------------------------------------------------------------------
+  # And then use them like this in your script:
 
-#      .---------- constant part!
-#      vvvv vvvv-- the code from above
-# Red='\033[0;31m'
-# printf "I ${Red}love${NoColor} Snoopix\n"
+  #      .---------- constant part!
+  #      vvvv vvvv-- the code from above
+  # Red='\033[0;31m'
 
-# if you are using the echo command, be sure to use the -e flag to allow backslash escapes.
-# echo -e "I ${Red}love${NC} Snoopix"
+  # printf "I ${Red}love${NoColor} Snoopix\n"
+
+  # if you are using the echo command, be sure to use the -e flag to allow backslash escapes.
+  # echo -e "I ${Red}love${NC} Snoopix"
+  #----------------------------------------------------------------------
+
+  Black='\033[0;30m'
+  Red='\033[0;31m'
+  Green='\033[0;32m'
+  Orange='\033[0;33m'
+  Brown=$Orange
+  Blue='\033[0;34m'
+  Purple='\033[0;35m'
+  Cyan='\033[0;36m'
+  LightGray='\033[0;37m'
+
+  DarkGray='\033[1;31m'
+  LightRed='\033[1;31m'
+  LightGreen='\033[1;31m'
+  Yellow='\033[1;31m'
+  LightBlue='\033[1;31m'
+  LightPurple='\033[1;31m'
+  LightCyan='\033[1;31m'
+  White='\033[1;31m'
+
+  NoColor='\033[0m'
+  NC=$NoColor
+}
+
+#----------------------------------------------------------------------
+# Main Init Script
 #----------------------------------------------------------------------
 
-Black='\033[0;30m'
-Red='\033[0;31m'
-Green='\033[0;32m'
-Orange='\033[0;33m'
-Brown=Orange
-Blue='\033[0;34m'
-Purple='\033[0;35m'
-Cyan='\033[0;36m'
-LightGray='\033[0;37m'
+# Load Screen Sizes
+CalcScreen
 
-DarkGray='\033[1;31m'
-LightRed='\033[1;31m'
-LightGreen='\033[1;31m'
-Yellow='\033[1;31m'
-LightBlue='\033[1;31m'
-LightPurple='\033[1;31m'
-LightCyan='\033[1;31m'
-White='\033[1;31m'
-
-NoColor='\033[0m'
-NC=NoColor
+# Set ANSI colors
+AnsiColors
