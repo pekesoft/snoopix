@@ -1,16 +1,30 @@
 #!/bin/bash
 
 #----------------------------------------------------------------------
+# [EN] Multiple platform installation framework
 # [ES] Script para la instalación de paquetes en distintas plataformas.
 #----------------------------------------------------------------------
-# Copyright © 2018 by Peke Soft, Ltd. JAN-2018.
+# Copyright © 2018 by Peke Soft, Ltd. Licensed under GPL 3.0
 #----------------------------------------------------------------------
 
-#Comprobamos el Sistema Operativo y su versión.
+#----------------------------------------------------------------------
+# Check Operating System and Version
+#----------------------------------------------------------------------
 #TODO
 
-# Comprobación de la existencia de un determinado paquete.
-# Basado en el código de http://www.ubuntu-es.org/node/82817#.WlekwlSdUsk
+#----------------------------------------------------------------------
+# Check previous package installation.
+#----------------------------------------------------------------------
+# Based on http://www.ubuntu-es.org/node/82817#.WlekwlSdUsk
+# And https://blog.desdelinux.net/como-saber-si-un-paquete-se-encuentra-instalado-o-no-de-manera-facil-y-rapida/
+#----------------------------------------------------------------------
+# Arch Linux: pacman -Qs paquete
+# Fedora: rpm -qa | grep paquete
+# Debian/Ubuntu: dpkg -l | grep paquete
+# OpenSUSE: zypper se -i paquete
+# Gentoo: emerge -pv paquete
+# Para OSX usar hombrebrew
+#----------------------------------------------------------------------
 CheckPackage () {
   echo "Introduce el nombre del paquete"
   read miprograma
@@ -23,14 +37,43 @@ CheckPackage () {
   fi
 }
 
+#----------------------------------------------------------------------
+# Find a package in repositories
+#----------------------------------------------------------------------
+# Arch Linux: pacman -Ss paquete
+# Fedora: yum search paquete
+# Debian/Ubuntu: apt-cache search paquete
+# OpenSUSE: zypper se paquete
+# Gentoo: emerge -S paquete
+#----------------------------------------------------------------------
+FindPackage () {
+
+}
+
+#----------------------------------------------------------------------
+# Install Package using System Tools.
+#----------------------------------------------------------------------
 Install () {
 
 }
 
+#----------------------------------------------------------------------
+# Reinstall previous installed package using System Tools.
+#----------------------------------------------------------------------
 Reinstall () {
 
 }
 
+#----------------------------------------------------------------------
+# Remove an installed package from system.
+#----------------------------------------------------------------------
 Remove () {
+
+}
+
+#----------------------------------------------------------------------
+# Purge all files from an uninstalled package.
+#----------------------------------------------------------------------
+Purge () {
 
 }

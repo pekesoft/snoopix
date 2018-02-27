@@ -1,19 +1,25 @@
 #!/bin/bash
 
 #----------------------------------------------------------------------
-# Main Snoopix Script
+# [EN] Main Snoopix Script
+# [ES] Script principal del sistema Snoopix.
 #----------------------------------------------------------------------
-# Copyright © 2018 by Peke Soft, Ltd. JAN-2018.
+# Copyright © 2018 by Peke Soft, Ltd. Licensed under GPL 3.0
 #----------------------------------------------------------------------
+# Snoopix is located into 2 paths:
+#     /opt/snoopix --> Local instance
+#     /srv/snoopix --> Server remote instance.
+# For local instances, /srv/snoopix points to /opt/snoopix until
+# remote instance will be applied. We asume to use /srv/snoopix as default.
+#----------------------------------------------------------------------
+
 
 # First of all, we need to load the Snoopix framework
 if [ -f /srv/snoopix/lib/snoopix-framework ]; then
   . /srv/snoopix/lib/snoopix-framework
 else
   # Little portion of ANSI colors constants defined in snoopix-framework
-  Red='\033[0;31m'
-  Green='\033[0;32m'
-  NC='\033[0m'
+  Red='\033[0;31m', Green='\033[0;32m', NC='\033[0m'
 
   echo -e "${Red}[ERROR]${NC} Debes instalar previamente el framework de snoopix."
   echo -e "Ejecuta ${Green}./snoopix-setup.sh${NC}"

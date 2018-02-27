@@ -98,7 +98,7 @@ EOF
 }
 
 # Procedimiento para crear un servicio web para WordPress
-CreateWordpressService () {
+CreateNginxWordpressService () {
 
     #TODO Seleccionar puerto dinámicamente para el uso con Varnish y otros sistemas.
     Port=80
