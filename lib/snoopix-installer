@@ -8,9 +8,9 @@
 #----------------------------------------------------------------------
 
 #----------------------------------------------------------------------
-# Check Operating System and Version
+# Load the Snoopix framework to Check Operating System and Version
 #----------------------------------------------------------------------
-#TODO
+. /srv/snoopix/lib/snoopix-framework
 
 #----------------------------------------------------------------------
 # Check previous package installation.

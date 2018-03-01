@@ -1,14 +1,15 @@
 #!/bin/bash
 
 #----------------------------------------------------------------------
-# Main Snoopix framework script
+# [EN] Main Snoopix framework script
+# [ES] Script principal del framework de Snoopix.
 #----------------------------------------------------------------------
-# Copyright © 2018 by Peke Soft, Ltd. Licensed under GPL3
+# Copyright © 2018 by Peke Soft, Ltd. Licensed under GPL 3.0
 #----------------------------------------------------------------------
 # Coded & Designed by ChuxMan (chuxman@pekesoft.com)
 #----------------------------------------------------------------------
 
-# Check if there's a previous framework load
+# Check if there's a previous framework loaded
 if [ $Snoopix -eq 1 ]; then
   return
 fi
@@ -88,6 +89,35 @@ AnsiColors() {
 }
 
 #----------------------------------------------------------------------
+# Get System Version and distribution
+# Based on https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+#----------------------------------------------------------------------
+SystemVersion() {
+
+  # Kernel Version, for example: 4.15.0-10-generic
+  KernelVersion=$(uname -r)
+
+  # Machine name, for example: MyComputer
+  MachineName=$(uname -n)
+
+  # Architecture, for example: x86_64
+  Architecture=$(uname -m)
+
+  # System Type, for example: darwin, linux
+  SystemType=$(uname -s)
+
+  # If SystemType is not darwin, then get release variables.
+  if [ ! $SystemType -eq "darwin"]; then
+
+    # Include system release.
+    . /etc/os-release
+
+    
+
+  fi
+}
+
+#----------------------------------------------------------------------
 # Main Init Script
 #----------------------------------------------------------------------
 
@@ -96,3 +126,9 @@ CalcScreen
 
 # Set ANSI colors
 AnsiColors
+
+# Get System version
+SystemVersion
+
+# Set Global variable to avoid recursive loads.
+Snoopix=1
