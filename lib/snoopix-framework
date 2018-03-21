@@ -150,7 +150,7 @@ CheckChecksum () {
 }
 
 PrintInfo () {
-  if [ ! -n $2 ]; then
+  if [ ! -z "$2" ]; then
     SubText="$1 ${White}$2${NoColor}"
   else
     SubText="$1"

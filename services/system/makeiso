@@ -23,12 +23,10 @@ fi
 # mkisofs -o /destino/cd.iso /carpeta_para_imagen
 MakeISO () {
 
-  Fichero="$1"
-
   PrintInfo "Creando fichero ISO:" "$1.iso"
 
   # Make ISO file.
-  mkisofs -r -f -udf -V "${Fichero:0:15}" -o "./$1.iso" "./$1"
+  mkisofs -r -f -udf -V "${1:1:15}" -o "./$1.iso" "./$1"
 
   # Create Checksum file
   CreateChecksum "$1.iso"
