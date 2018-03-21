@@ -47,13 +47,13 @@ CheckFolders () {
       if [ -d "$file" ]; then
 
         # Check previous package
-        if [ ! -f "$file.iso"]; then
+        if [ ! -f "${file}.iso"]; then
 
           # Folder found. Make an Iso for this location.
           MakeISO "$file"
         else
 
-          PrintInfo "Saltando fichero existente: ", "$file.iso"
+          PrintInfo "Saltando fichero existente: ", "${file}.iso"
 
         fi
       fi
