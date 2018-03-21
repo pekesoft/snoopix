@@ -41,19 +41,20 @@ CheckFolders () {
   # Check current location to find folders.
   for file in *
   do
+    checkFile="${file}.iso"
     # Check if it's not empty
     if [ -n "$file" ]; then
       # Check if is a Folder
       if [ -d "$file" ]; then
 
         # Check previous package
-        if [ ! -f "${file}.iso"]; then
+        if [ ! -e checkFile ]; then
 
           # Folder found. Make an Iso for this location.
           MakeISO "$file"
         else
 
-          PrintInfo "Saltando fichero existente: " "${file}.iso"
+          PrintInfo "Saltando fichero existente: " "${checkFile}"
 
         fi
       fi
