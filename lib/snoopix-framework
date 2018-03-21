@@ -24,7 +24,7 @@ CalcScreen() {
   # stderr is a tty and so only gives default 80, 24 values
 
   ScreenHeight=17
-  ScreenWidth=$((tput cols))
+  ScreenWidth=$(tput cols)
 
   if [ -z "$ScreenWidth" ] || [ "$ScreenWidth" -lt 60 ]; then
     ScreenWidth=80
@@ -112,7 +112,7 @@ SystemVersion() {
     # Include system release.
     . /etc/os-release
 
-    
+
 
   fi
 }
