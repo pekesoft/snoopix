@@ -26,7 +26,7 @@ MakeISO () {
   PrintInfo "Creando fichero ISO:" "$1.iso"
 
   # Make ISO file.
-  mkisofs -r -udf -V "${1:0:15}" -o "./$1.iso" "./$1"
+  mkisofs -r -f -udf -V "${1:0:15}" -o "./$1.iso" "./$1"
 
   # Create Checksum file
   CreateChecksum "$1.iso"
@@ -46,9 +46,16 @@ CheckFolders () {
       # Check if is a Folder
       if [ -d "$file" ]; then
 
-        # Folder found. Make an Iso for this location.
-        MakeISO "$file"
+        # Check previous package
+        if [ ! -f "$file.iso"]; then
 
+          # Folder found. Make an Iso for this location.
+          MakeISO "$file"
+        else
+
+          PrintInfo "Saltando fichero existente: ", "$file.iso"
+
+        fi
       fi
     fi
   done
