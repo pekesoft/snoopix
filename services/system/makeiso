@@ -53,7 +53,7 @@ CheckFolders () {
           MakeISO "$file"
         else
 
-          PrintInfo "Saltando fichero existente: ", "${file}.iso"
+          PrintInfo "Saltando fichero existente: " "${file}.iso"
 
         fi
       fi
