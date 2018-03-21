@@ -117,6 +117,19 @@ SystemVersion() {
   fi
 }
 
+# Function to create a checksum file
+CreateChecksum () {
+  # Create Checksum file
+  md5sum "$1" > "$1.md5"
+
+  # Check if checksum is right
+  md5sum -c "$1.md5"
+}
+
+Print () {
+  printf "${LightBlue}[INFO]${NoColor} Creando fichero ISO ${White}$1.iso${NoColor}\n\n"
+}
+
 #----------------------------------------------------------------------
 # Main Init Script
 #----------------------------------------------------------------------

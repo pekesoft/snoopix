@@ -22,29 +22,36 @@ fi
 # Based On https://blog.desdelinux.net/como-crear-un-iso-desde-el-terminal/
 # mkisofs -o /destino/cd.iso /carpeta_para_imagen
 MakeISO () {
-  mkisofs -o /$1.iso /$1
+
+  printf "${LightBlue}[INFO]${NoColor} Creando fichero ISO ${White}$1.iso${NoColor}\n\n"
+
+  # Make ISO file.
+  mkisofs -r -V "$1" -o "./$1.iso" "./$1"
+
+  # Create Checksum file
+  CreateChecksum "$1"
 }
 
 # Based On http://soleronline.blogspot.com.es/2012/05/bash-recorrer-un-directorio.html
 CheckFolders () {
 
   #Get Dir Parameter
-  dir=$(dir -1)
+  #dir=$(dir -1)
 
   # Check current location to find folders.
-  for file in $dir;
+  for file in *
   do
     # Check if it's not empty
-    if [ -n $file ]; then
+    if [ -n "$file" ]; then
       # Check if is a Folder
       if [ -d "$file" ]; then
 
         # Folder found. Make an Iso for this location.
-        MakeISO $file
+        MakeISO "$file"
 
-      fi;
-    fi;
-  done;
+      fi
+    fi
+  done
 }
 
 #
