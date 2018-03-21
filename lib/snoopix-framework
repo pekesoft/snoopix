@@ -130,7 +130,7 @@ CreateChecksum () {
 
 CreateChecksumFile () {
 
-  printf "${LightGreen}[INFO]${NoColor} Creando fichero de checksum global: ${White}@Checksum.md5${NoColor}\n\n"
+  PrintInfo "Creando fichero de checksum global:" "@Checksum.md5"
 
   # Remove previous checksums
   rm "@Checksum.md5"
@@ -143,14 +143,20 @@ CreateChecksumFile () {
 
 CheckChecksum () {
 
-  printf "${LightGreen}[INFO]${NoColor} Comprobando fichero de checksum: ${White}$1.md5${NoColor}\n\n"
+  PrintInfo "Comprobando fichero de checksum:" "$1.md5"
 
   # Check if checksum is right
   md5sum -c "$1.md5"
 }
 
-Print () {
-  printf "${LightBlue}[INFO]${NoColor} Creando fichero ISO ${White}$1.iso${NoColor}\n\n"
+PrintInfo () {
+  if [ ! -n $2 ]; then
+    SubText="$1 ${White}$2${NoColor}"
+  else
+    SubText="$1"
+  fi
+
+  printf "\n${LightGreen}[INFO]${NoColor} $SubText\n\n"
 }
 
 #----------------------------------------------------------------------
