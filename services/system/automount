@@ -23,7 +23,7 @@ fi
 # mkisofs -o /destino/cd.iso /carpeta_para_imagen
 MakeISO () {
 
-  printf "${LightBlue}[INFO]${NoColor} Creando fichero ISO ${White}$1.iso${NoColor}\n\n"
+  printf "${LightGreen}[INFO]${NoColor} Creando fichero ISO: ${White}$1.iso${NoColor}\n\n"
 
   # Make ISO file.
   mkisofs -r -udf -V "$1" -o "./$1.iso" "./$1"
@@ -52,6 +52,9 @@ CheckFolders () {
       fi
     fi
   done
+
+  CreateChecksumFile
+
 }
 
 #

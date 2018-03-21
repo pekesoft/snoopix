@@ -119,8 +119,31 @@ SystemVersion() {
 
 # Function to create a checksum file
 CreateChecksum () {
+
+  printf "${LightGreen}[INFO]${NoColor} Creando fichero de comprobación: ${White}$1.md5${NoColor}\n\n"
+
   # Create Checksum file
   md5sum "$1" > "$1.md5"
+
+  CheckChecksum "$1"
+}
+
+CreateChecksumFile () {
+
+  printf "${LightGreen}[INFO]${NoColor} Creando fichero de checksum global: ${White}@Checksum.md5${NoColor}\n\n"
+
+  # Remove previous checksums
+  rm "@Checksum.md5"
+
+  # Create a new checksum.
+  cat *.md5 > @Checksum.md5
+
+  CheckChecksum "@Checksum"
+}
+
+CheckChecksum () {
+
+  printf "${LightGreen}[INFO]${NoColor} Comprobando fichero de checksum: ${White}$1.md5${NoColor}\n\n"
 
   # Check if checksum is right
   md5sum -c "$1.md5"
