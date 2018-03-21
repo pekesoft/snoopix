@@ -1,0 +1,58 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------
+# [EN] Creates an ISO file for each folder and make a automount file
+# [ES] Crea un fichero ISO por cada carpeta y hace un fichero de automount
+#----------------------------------------------------------------------
+# Copyright © 2018 by Peke Soft, Ltd. Licensed under GPL 3.0
+#----------------------------------------------------------------------
+
+# First of all, we need to load the Snoopix framework
+if [ -f /srv/snoopix/lib/snoopix-framework ]; then
+  . /srv/snoopix/lib/snoopix-framework
+else
+  # Little portion of ANSI colors constants defined in snoopix-framework
+  Red='\033[0;31m', Green='\033[0;32m', NC='\033[0m'
+
+  echo -e "${Red}[ERROR]${NC} Debes instalar previamente el framework de snoopix."
+  echo -e "Ejecuta ${Green}./snoopix-setup.sh${NC}"
+  exit 0
+fi
+
+# Based On https://blog.desdelinux.net/como-crear-un-iso-desde-el-terminal/
+# mkisofs -o /destino/cd.iso /carpeta_para_imagen
+MakeISO () {
+  mkisofs -o /$1.iso /$1
+}
+
+# Based On http://soleronline.blogspot.com.es/2012/05/bash-recorrer-un-directorio.html
+CheckFolders () {
+
+  #Get Dir Parameter
+  dir=$(dir -1)
+
+  # Check current location to find folders.
+  for file in $dir;
+  do
+    # Check if it's not empty
+    if [ -n $file ]; then
+      # Check if is a Folder
+      if [ -d "$file" ]; then
+
+        # Folder found. Make an Iso for this location.
+        MakeISO $file
+
+      fi;
+    fi;
+  done;
+}
+
+#
+# recogemos el directorio a recorrer
+DIR=$@
+# entramos a él
+cd $DIR
+# y llamamos a la función recorrer_directorio pasandole
+# como parámetro el directorio
+CheckFolders $DIR
+# la definición de la función
