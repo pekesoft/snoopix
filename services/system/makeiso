@@ -48,7 +48,7 @@ CheckFolders () {
       if [ -d "$file" ]; then
 
         # Check previous package
-        if [ -s $checkFile ]; then
+        if [ -s "$checkFile" ]; then
           PrintInfo "Saltando fichero existente: " "${checkFile}"
         else
           # Folder found. Make an Iso for this location.
