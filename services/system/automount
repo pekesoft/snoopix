@@ -26,10 +26,10 @@ MakeISO () {
   printf "${LightBlue}[INFO]${NoColor} Creando fichero ISO ${White}$1.iso${NoColor}\n\n"
 
   # Make ISO file.
-  mkisofs -r -V "$1" -o "./$1.iso" "./$1"
+  mkisofs -r -udf -V "$1" -o "./$1.iso" "./$1"
 
   # Create Checksum file
-  CreateChecksum "$1"
+  CreateChecksum "$1.iso"
 }
 
 # Based On http://soleronline.blogspot.com.es/2012/05/bash-recorrer-un-directorio.html

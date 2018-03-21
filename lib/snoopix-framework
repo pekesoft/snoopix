@@ -75,14 +75,14 @@ AnsiColors() {
   Cyan='\033[0;36m'
   LightGray='\033[0;37m'
 
-  DarkGray='\033[1;31m'
+  DarkGray='\033[1;30m'
   LightRed='\033[1;31m'
-  LightGreen='\033[1;31m'
-  Yellow='\033[1;31m'
-  LightBlue='\033[1;31m'
-  LightPurple='\033[1;31m'
-  LightCyan='\033[1;31m'
-  White='\033[1;31m'
+  LightGreen='\033[1;32m'
+  Yellow='\033[1;33m'
+  LightBlue='\033[1;34m'
+  LightPurple='\033[1;35m'
+  LightCyan='\033[1;36m'
+  White='\033[1;37m'
 
   NoColor='\033[0m'
   NC=$NoColor
