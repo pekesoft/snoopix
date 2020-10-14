@@ -19,7 +19,7 @@ if [ -f /srv/snoopix/lib/snoopix-framework ]; then
   . /srv/snoopix/lib/snoopix-framework
 else
   # Little portion of ANSI colors constants defined in snoopix-framework
-  Red='\033[0;31m', Green='\033[0;32m', NC='\033[0m'
+  Red='\033[0;31m'; Green='\033[0;32m'; NC='\033[0m'
 
   echo -e "${Red}[ERROR]${NC} Debes instalar previamente el framework de snoopix."
   echo -e "Ejecuta ${Green}./snoopix-setup.sh${NC}"
@@ -35,23 +35,22 @@ MyPath=./
 #
 # Interactive use loop
 #
-. ./lib/snoopix-calcs
+#. ./lib/snoopix-calcs
 
 # set -x
+echo "$ScreenHeight, $ScreenWidth, $MenuHeight"
 while true; do
-  FUN=$(whiptail --title "Menú Principal - Snoopix" --menu \
-  "                              _
-  ___ _ __   ___   ___  _ __ (_)_  __
- / __| '_ \ / _ \ / _ \| '_ \| \ \/ /
- \__ \ | | | (_) | (_) | |_) | |>  <
- |___/_| |_|\___/ \___/| .__/|_/_/\_\
-                       |_|
-" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT \
-    --cancel-button Salir --ok-button Seleccionar \
-    "1 Sistema" "Administración y mantenimiento del Sistema Operativo" \
-    "2 Servicios" "Administrador de servicios" \
-    "3 Backup" "Servidor moderno basado en javascript" \
-    "4 Varnish" "Caché acelerador de carga" \
+  FUN=$(whiptail --title "Menú Principal - Snoopix" --backtitle "$DebugInfo" \
+    --menu "$LogoInfo \
+\n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" 35 $ScreenWidth $MenuHeight \
+    --cancel-button "Salir" --ok-button "Seleccionar" \
+    "1 Información" "| Muestra toda la información del sistema y el hardware." \
+    "2 Setup" "| Configura tanto los aspectos básicos del sistema como de Snoopix." \
+    "3 Sistema" "| Administración y mantenimiento del Sistema Operativo y los servicios instalados." \
+    "4 Servicios" "| Instalador y Administrador de servicios." \
+    "5 Backup" "| Creación y mantenimiento de copias de seguridad." \
+    "6 Limpieza" "| Limpieza de archivos obsoletos y del sistema operativo." \
+    "7 Seguridad" "| Configuración y mantenimiento de la seguridad del sistema." \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
@@ -62,6 +61,9 @@ while true; do
       2\ *) source ./wizards/snoopix-web ;;
       3\ *) do_boot_behaviour ;;
       4\ *) do_internationalisation_menu ;;
+      5\ *) do_internationalisation_menu ;;
+      6\ *) do_internationalisation_menu ;;
+      7\ *) do_internationalisation_menu ;;
       *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;
     esac || whiptail --msgbox "[ERROR] Hay un error tratando de cargar el servicio $FUN" 20 60 1
   else
@@ -69,3 +71,14 @@ while true; do
   fi
   # set +x
 done
+
+#  "                              _            \
+
+#"   ___ _ __   ___   ___  _ __ (_)_  __\n \
+# / __| '_ \ / _ \ / _ \| '_ \| \ \/ /\n \
+# \__ \ | | | (_) | (_) | |_) | |>  <\n \
+# |___/_| |_|\___/ \___/| .__/|_/_/\_\ \n \
+#                       |_| v.$SnoopixVersion | www.snoopix.org \n \
+#\nCopyright (c) 2011-2020 By Peke Soft, Ltd. Madrid | All Rights Reserved | Licensed under CC-NC-SA | www.pekesoft.com \
+#\n\nSnoopix es un sistema automatizado de administración y mantenimiento de equipos basados en Linux o compatibles, incluyendo macOS y WSL.\
+#\nPara más información consulta la documentación en: www.snoopix.org/manual

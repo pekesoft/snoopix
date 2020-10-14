@@ -4,13 +4,17 @@
 # [EN] Main Snoopix framework script
 # [ES] Script principal del framework de Snoopix.
 #----------------------------------------------------------------------
-# Copyright © 2018 by Peke Soft, Ltd. Licensed under GPL 3.0
+# Copyright © 2018 by Peke Soft, Ltd. Licensed under CC-NC-SA
 #----------------------------------------------------------------------
 # Coded & Designed by ChuxMan (chuxman@pekesoft.com)
 #----------------------------------------------------------------------
 
+# Set current version
+CopyrightYear="2020"
+SnoopixVersion="1.0.0 Alpha 1 (OCT 2020)"
+
 # Check if there's a previous framework loaded
-if [ $Snoopix -eq 1 ]; then
+if [ $Snoopix ]; then
   return
 fi
 
@@ -23,7 +27,7 @@ CalcScreen() {
   # output from tput. However in this case, tput detects neither stdout or
   # stderr is a tty and so only gives default 80, 24 values
 
-  ScreenHeight=17
+  ScreenHeight=18
   ScreenWidth=$(tput cols)
 
   if [ -z "$ScreenWidth" ] || [ "$ScreenWidth" -lt 60 ]; then
@@ -32,8 +36,8 @@ CalcScreen() {
   if [ "$ScreenWidth" -gt 178 ]; then
     ScreenWidth=120
   fi
-
-  MenuHeight=$(($ScreenWidth-7))
+  ScreenWidth=$(($ScreenWidth-10))
+  MenuHeight=$(($ScreenHeight-8))
 
 }
 
@@ -107,14 +111,13 @@ SystemVersion() {
   SystemType=$(uname -s)
 
   # If SystemType is not darwin, then get release variables.
-  if [ ! $SystemType -eq "darwin"]; then
+  if [ $SystemType != "darwin" ]; then
 
     # Include system release.
     . /etc/os-release
-
-
-
   fi
+
+  DebugInfo="Snoopix v$SnoopixVersion | $MachineName | $SystemType ($KernelVersion $Architecture) | $NAME $VERSION"
 }
 
 # Function to create a checksum file
@@ -171,6 +174,20 @@ AnsiColors
 
 # Get System version
 SystemVersion
+
+# Snoopix Display Info
+Logo="   ___ _ __   ___   ___  _ __ (_)_  __\n \
+ / __| '_ \ / _ \ / _ \| '_ \| \ \/ /\n \
+ \__ \ | | | (_) | (_) | |_) | |>  <\n \
+ |___/_| |_|\___/ \___/| .__/|_/_/\_\ \n \
+                       |_|"
+                       
+LogoVersion="$Logo v.$SnoopixVersion | www.snoopix.org \n"
+Copyright="\n\nCopyright (c) 2011-$CopyrightYear By Peke Soft, Ltd. Madrid | All Rights Reserved | Licensed under CC-NC-SA | www.pekesoft.com"
+Info="\n\nSnoopix es un sistema automatizado de administración y mantenimiento de equipos basados en Linux o compatibles, incluyendo macOS y WSL.\
+\nPara más información consulta la documentación en: www.snoopix.org/manual"
+LogoCopyright="$LogoVersion $Copyright"
+LogoInfo="$LogoVersion $Copyright $Info"
 
 # Set Global variable to avoid recursive loads.
 Snoopix=1
