@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------
+# [EN] System Info Script
+# [ES] Script de Información del Sistema.
+#----------------------------------------------------------------------
+# Copyright © 2020 by Peke Soft, Ltd. Licensed under CC-NC-SA
+#   v.1.0.0 Oct 2020 By ChuxMan. (chuxman@pekesoft.com)
+#----------------------------------------------------------------------
+# Muestra tanto información del sistema, software, hardware y snoopix.
+#----------------------------------------------------------------------
+. /srv/snoopix/lib/snoopix-framework
+
+clear
+PrintInfo "InfoScript" "Testeando el sistema..."
+PrintInfo "Probando uno dos\n"
+Pause
+return 0

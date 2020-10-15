@@ -120,46 +120,19 @@ SystemVersion() {
   DebugInfo="Snoopix v$SnoopixVersion | $MachineName | $SystemType ($KernelVersion $Architecture) | $NAME $VERSION"
 }
 
-# Function to create a checksum file
-CreateChecksum () {
-
-  printf "${LightGreen}[INFO]${NoColor} Creando fichero de comprobación: ${White}$1.md5${NoColor}\n\n"
-
-  # Create Checksum file
-  md5sum "$1" > "${1}.md5"
-
-  CheckChecksum "$1"
-}
-
-CreateChecksumFile () {
-
-  PrintInfo "Creando fichero de checksum global:" "@Checksum.md5"
-
-  # Remove previous checksums
-  rm "@Checksum.md5"
-
-  # Create a new checksum.
-  cat *.md5 > @Checksum.md5
-
-  CheckChecksum "@Checksum"
-}
-
-CheckChecksum () {
-
-  PrintInfo "Comprobando fichero de checksum:" "${1}.md5"
-
-  # Check if checksum is right
-  md5sum -c "${1}.md5"
-}
-
 PrintInfo () {
   if [ ! -z "$2" ]; then
-    SubText="$1 ${White}$2${NoColor}"
+    SubText="${Yellow}[$1]${NoColor} $2"
   else
-    SubText="$1"
+    SubText="${NC}$1"
   fi
 
-  printf "\n${LightGreen}[INFO]${NoColor} $SubText\n\n"
+  printf "\n${LightGreen}[INFO]${NoColor} $SubText\n"
+}
+
+Pause () {
+  printf "${Orange}[WAIT]${White} "
+  read -rsp $"Pulsa cualquier tecla o espera 5 segundos para continuar..." -n 1 -t 5;
 }
 
 #----------------------------------------------------------------------
@@ -184,10 +157,10 @@ Logo="   ___ _ __   ___   ___  _ __ (_)_  __\n \
                        
 LogoVersion="$Logo v.$SnoopixVersion | www.snoopix.org \n"
 Copyright="\n\nCopyright (c) 2011-$CopyrightYear By Peke Soft, Ltd. Madrid | All Rights Reserved | Licensed under CC-NC-SA | www.pekesoft.com"
-Info="\n\nSnoopix es un sistema automatizado de administración y mantenimiento de equipos basados en Linux o compatibles, incluyendo macOS y WSL.\
+Info="\n\nSnoopix es un sistema automatizado de administración y mantenimiento de sistemas Linux o compatibles, incluyendo macOS (BSD) y WSL.\
 \nPara más información consulta la documentación en: www.snoopix.org/manual"
 LogoCopyright="$LogoVersion $Copyright"
-LogoInfo="$LogoVersion $Copyright $Info"
+LogoInfo="$LogoCopyright $Info"
 
 # Set Global variable to avoid recursive loads.
 Snoopix=1

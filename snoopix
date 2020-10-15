@@ -4,15 +4,16 @@
 # [EN] Main Snoopix Script
 # [ES] Script principal del sistema Snoopix.
 #----------------------------------------------------------------------
-# Copyright © 2018 by Peke Soft, Ltd. Licensed under GPL 3.0
+# Copyright © 2018 by Peke Soft, Ltd. Licensed under CC-NC-SA
+#   v.1.0.0 Oct 2020 By ChuxMan. (chuxman@pekesoft.com)
 #----------------------------------------------------------------------
 # Snoopix is located into 2 paths:
 #     /opt/snoopix --> Local instance
 #     /srv/snoopix --> Server remote instance.
 # For local instances, /srv/snoopix points to /opt/snoopix until
 # remote instance will be applied. We asume to use /srv/snoopix as default.
+# More info at snoopix-setup.
 #----------------------------------------------------------------------
-
 
 # First of all, we need to load the Snoopix framework
 if [ -f /srv/snoopix/lib/snoopix-framework ]; then
@@ -22,15 +23,15 @@ else
   Red='\033[0;31m'; Green='\033[0;32m'; NC='\033[0m'
 
   echo -e "${Red}[ERROR]${NC} Debes instalar previamente el framework de snoopix."
-  echo -e "Ejecuta ${Green}./snoopix-setup.sh${NC}"
+  echo -e "Ejecuta ${Green}./snoopix-setup${NC}"
   exit 0
 fi
 
-INTERACTIVE=True
-ASK_TO_REBOOT=0
-BLACKLIST=/etc/modprobe.d/raspi-blacklist.conf
-CONFIG=/boot/config.txt
-MyPath=./
+# INTERACTIVE=True
+# ASK_TO_REBOOT=0
+# BLACKLIST=/etc/modprobe.d/raspi-blacklist.conf
+# CONFIG=/boot/config.txt
+# MyPath=./
 
 #
 # Interactive use loop
@@ -41,9 +42,9 @@ MyPath=./
 echo "$ScreenHeight, $ScreenWidth, $MenuHeight"
 while true; do
   FUN=$(whiptail --title "Menú Principal - Snoopix" --backtitle "$DebugInfo" \
-    --menu "$LogoInfo \
-\n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" 35 $ScreenWidth $MenuHeight \
+    --menu "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" 35 $ScreenWidth $MenuHeight \
     --cancel-button "Salir" --ok-button "Seleccionar" \
+    "0 Status" "| Monitor del estado del sistema y servicios" \
     "1 Información" "| Muestra toda la información del sistema y el hardware." \
     "2 Setup" "| Configura tanto los aspectos básicos del sistema como de Snoopix." \
     "3 Sistema" "| Administración y mantenimiento del Sistema Operativo y los servicios instalados." \
@@ -51,19 +52,25 @@ while true; do
     "5 Backup" "| Creación y mantenimiento de copias de seguridad." \
     "6 Limpieza" "| Limpieza de archivos obsoletos y del sistema operativo." \
     "7 Seguridad" "| Configuración y mantenimiento de la seguridad del sistema." \
+    "8 Herramientas" "| Utilidades y herramientas del sistema." \
+    "9 Asistentes" "| Robots automatizados para la creación, configuración y automantenimiento de servicios." \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
+    clear 
     exit 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      1\ *) source ./services/snoopix-services ;;
-      2\ *) source ./wizards/snoopix-web ;;
-      3\ *) do_boot_behaviour ;;
-      4\ *) do_internationalisation_menu ;;
-      5\ *) do_internationalisation_menu ;;
-      6\ *) do_internationalisation_menu ;;
-      7\ *) do_internationalisation_menu ;;
+      0\ *) source ./status/@status ;;
+      1\ *) source ./info/@info ;;
+      2\ *) source ./setup/@setup ;;
+      3\ *) source ./system/@system ;;
+      4\ *) source ./services/@services ;;
+      5\ *) source ./backup/@backup ;;
+      6\ *) source ./cleanup/@cleanup ;;
+      7\ *) source ./security/@security ;;
+      8\ *) source ./tools/@tools ;;
+      9\ *) source ./wizards/@wizards ;;      
       *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;
     esac || whiptail --msgbox "[ERROR] Hay un error tratando de cargar el servicio $FUN" 20 60 1
   else

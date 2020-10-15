@@ -1,0 +1,44 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------
+# [EN] Multiple platform installation framework
+# [ES] Script para la instalación de paquetes en distintas plataformas.
+#----------------------------------------------------------------------
+# Copyright © 2018 by Peke Soft, Ltd. Licensed under CC-NC-SA
+#----------------------------------------------------------------------
+
+#----------------------------------------------------------------------
+# Load the Snoopix framework to Check Operating System and Version
+#----------------------------------------------------------------------
+
+# Function to create a checksum file
+CreateChecksum () {
+
+  printf "${LightGreen}[INFO]${NoColor} Creando fichero de comprobación: ${White}$1.md5${NoColor}\n\n"
+
+  # Create Checksum file
+  md5sum "$1" > "${1}.md5"
+
+  CheckChecksum "$1"
+}
+
+CreateChecksumFile () {
+
+  PrintInfo "Creando fichero de checksum global:" "@Checksum.md5"
+
+  # Remove previous checksums
+  rm "@Checksum.md5"
+
+  # Create a new checksum.
+  cat *.md5 > @Checksum.md5
+
+  CheckChecksum "@Checksum"
+}
+
+CheckChecksum () {
+
+  PrintInfo "Comprobando fichero de checksum:" "${1}.md5"
+
+  # Check if checksum is right
+  md5sum -c "${1}.md5"
+}
