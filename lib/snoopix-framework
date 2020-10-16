@@ -23,21 +23,36 @@ fi
 #----------------------------------------------------------------------
 CalcScreen() {
 
+  #----------------------------------------------------------------------
+  # Original comment on raspi-config:
+  #----------------------------------------------------------------------
   # NOTE: it's tempting to redirect stderr to /dev/null, so supress error
   # output from tput. However in this case, tput detects neither stdout or
   # stderr is a tty and so only gives default 80, 24 values
+  #----------------------------------------------------------------------
 
-  ScreenHeight=18
+  ScreenLines=$(tput lines)
+  ScreenHeight=$(($ScreenLines-6)) #18
+  ScreenCols=$(tput cols)
   ScreenWidth=$(tput cols)
 
-  if [ -z "$ScreenWidth" ] || [ "$ScreenWidth" -lt 60 ]; then
+  if [ "$ScreenWidth" -lt 120 ]; then
+    ScreenWidth=$(($ScreenWidth-4))
+  fi
+  if [ -z "$ScreenWidth" ] || [ "$ScreenWidth" -lt 81 ]; then
     ScreenWidth=80
   fi
-  if [ "$ScreenWidth" -gt 178 ]; then
-    ScreenWidth=120
+  if [ "$ScreenWidth" -gt 119 ] && [ "$ScreenWidth" -lt 150 ]; then
+    ScreenWidth=$(($ScreenWidth-10))
   fi
-  ScreenWidth=$(($ScreenWidth-10))
-  MenuHeight=$(($ScreenHeight-8))
+  if [ "$ScreenWidth" -gt 149 ] && [ "$ScreenWidth" -lt 180 ]; then
+    ScreenWidth=$(($ScreenWidth-40))
+  fi
+  if [ "$ScreenWidth" -gt 179 ]; then
+    ScreenWidth=$(($ScreenWidth-50))
+  fi
+  #ScreenWidth=$(($ScreenWidth-50))
+  MenuHeight=$(($ScreenHeight-28))
 
 }
 
@@ -119,6 +134,35 @@ SystemVersion() {
 
   DebugInfo="Snoopix v$SnoopixVersion | $MachineName | $SystemType ($KernelVersion $Architecture) | $NAME $VERSION"
 }
+PrintAd () {
+  if [ ! -z "$2" ]; then
+    SubText="${Cyan}[$1]${NoColor} $2"
+  else
+    SubText="${NC}$1"
+  fi
+
+  printf "\n${Blue}[INFO]${NoColor} $SubText\n"
+}
+
+PrintError () {
+  if [ ! -z "$2" ]; then
+    SubText="${Yellow}[$1]${NoColor} $2"
+  else
+    SubText="${NC}$1"
+  fi
+
+  printf "\n${Red}[ERROR]${NoColor} $SubText\n"
+}
+
+PrintWarning () {
+  if [ ! -z "$2" ]; then
+    SubText="${Yellow}[$1]${NoColor} $2"
+  else
+    SubText="${NC}$1"
+  fi
+
+  printf "\n${Orange}[WARNING]${NoColor} $SubText\n"
+}
 
 PrintInfo () {
   if [ ! -z "$2" ]; then
@@ -130,6 +174,7 @@ PrintInfo () {
   printf "\n${LightGreen}[INFO]${NoColor} $SubText\n"
 }
 
+# Basado en la info de https://profesorweb.es/2018/10/pausa-en-script-de-linux/
 Pause () {
   printf "${Orange}[WAIT]${White} "
   read -rsp $"Pulsa cualquier tecla o espera 5 segundos para continuar..." -n 1 -t 5;
@@ -156,9 +201,9 @@ Logo="   ___ _ __   ___   ___  _ __ (_)_  __\n \
                        |_|"
                        
 LogoVersion="$Logo v.$SnoopixVersion | www.snoopix.org \n"
-Copyright="\n\nCopyright (c) 2011-$CopyrightYear By Peke Soft, Ltd. Madrid | All Rights Reserved | Licensed under CC-NC-SA | www.pekesoft.com"
-Info="\n\nSnoopix es un sistema automatizado de administración y mantenimiento de sistemas Linux o compatibles, incluyendo macOS (BSD) y WSL.\
-\nPara más información consulta la documentación en: www.snoopix.org/manual"
+Copyright="\n\nCopyright (c) 2011-$CopyrightYear By Peke Soft, Ltd. Madrid | All Rights Reserved | www.pekesoft.com \
+           \nLicensed under CC-NC-SA | Git: https://www.github.com/pekesoft/snoopix"
+Info="\n\nSnoopix es un sistema automatizado de administración y mantenimiento de sistemas Linux o compatibles, incluyendo macOS (BSD) y WSL."
 LogoCopyright="$LogoVersion $Copyright"
 LogoInfo="$LogoCopyright $Info"
 

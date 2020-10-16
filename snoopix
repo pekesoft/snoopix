@@ -41,8 +41,8 @@ fi
 # set -x
 echo "$ScreenHeight, $ScreenWidth, $MenuHeight"
 while true; do
-  FUN=$(whiptail --title "Menú Principal - Snoopix" --backtitle "$DebugInfo" \
-    --menu "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" 35 $ScreenWidth $MenuHeight \
+  MenuChoice=$(whiptail --title "Menú Principal - Snoopix" --backtitle "$DebugInfo" \
+    --menu "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" $ScreenHeight $ScreenWidth $MenuHeight \
     --cancel-button "Salir" --ok-button "Seleccionar" \
     "0 Status" "| Monitor del estado del sistema y servicios" \
     "1 Información" "| Muestra toda la información del sistema y el hardware." \
@@ -54,13 +54,15 @@ while true; do
     "7 Seguridad" "| Configuración y mantenimiento de la seguridad del sistema." \
     "8 Herramientas" "| Utilidades y herramientas del sistema." \
     "9 Asistentes" "| Robots automatizados para la creación, configuración y automantenimiento de servicios." \
+    "D Desktop" "| Utilidades para Agregar, Eliminar y Administrar la gestión gráfica de Usuario." \
+    "U Update" "| Actualiza tanto el sistema de Snoopix como el Sistema Operativo y procede a un Clean Up." \
     3>&1 1>&2 2>&3)
-  RET=$?
-  if [ $RET -eq 1 ]; then
+  Return=$?
+  if [ $Return -eq 1 ]; then
     clear 
     exit 0
-  elif [ $RET -eq 0 ]; then
-    case "$FUN" in
+  elif [ $Return -eq 0 ]; then
+    case "$MenuChoice" in
       0\ *) source ./status/@status ;;
       1\ *) source ./info/@info ;;
       2\ *) source ./setup/@setup ;;
@@ -70,9 +72,11 @@ while true; do
       6\ *) source ./cleanup/@cleanup ;;
       7\ *) source ./security/@security ;;
       8\ *) source ./tools/@tools ;;
-      9\ *) source ./wizards/@wizards ;;      
+      9\ *) source ./wizards/@wizards ;;
+      D\ *) source ./desktop/@desktop ;;
+      U\ *) source ./update/@update ;;
       *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;
-    esac || whiptail --msgbox "[ERROR] Hay un error tratando de cargar el servicio $FUN" 20 60 1
+    esac || whiptail --msgbox "[ERROR] Hay un error tratando de cargar el menú, posiblemente no se encuentra disponible. Actualiza Snoopix. $FUN" 20 60 1
   else
     exit 1
   fi

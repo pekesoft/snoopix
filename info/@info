@@ -13,6 +13,7 @@
 
 clear
 PrintInfo "InfoScript" "Testeando el sistema..."
+PrintAd "InfoScript" " Screen Lines: $ScreenLines, Height: $ScreenHeight, Cols: $ScreenCols, Width: $ScreenWidth, MenuHeight: $MenuHeight"
 PrintInfo "Probando uno dos\n"
 Pause
 return 0
