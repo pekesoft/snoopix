@@ -134,14 +134,22 @@ SystemVersion() {
 
   DebugInfo="Snoopix v$SnoopixVersion | $MachineName | $SystemType ($KernelVersion $Architecture) | $NAME $VERSION"
 }
+
+UpdateTimeStamp () {
+  TimeStamp=$(date --rfc-3339='seconds')
+  TimeStamp="[$TimeStamp] "
+}
+
+# Herramientas para pintar avisos y mensajes en consola.
+
 PrintAd () {
   if [ ! -z "$2" ]; then
     SubText="${Cyan}[$1]${NoColor} $2"
   else
     SubText="${NC}$1"
   fi
-
-  printf "\n${Blue}[INFO]${NoColor} $SubText\n"
+  UpdateTimeStamp
+  printf "${Blue}[INFO]${NoColor}  $TimeStamp $SubText\n"
 }
 
 PrintError () {
@@ -151,7 +159,8 @@ PrintError () {
     SubText="${NC}$1"
   fi
 
-  printf "\n${Red}[ERROR]${NoColor} $SubText\n"
+  UpdateTimeStamp
+  printf "${Red}[ERROR]${NoColor} $TimeStamp $SubText\n"
 }
 
 PrintWarning () {
@@ -161,7 +170,8 @@ PrintWarning () {
     SubText="${NC}$1"
   fi
 
-  printf "\n${Orange}[WARNING]${NoColor} $SubText\n"
+  UpdateTimeStamp
+  printf "${Orange}[WARN]${NoColor}  $TimeStamp $SubText\n"
 }
 
 PrintInfo () {
@@ -171,13 +181,30 @@ PrintInfo () {
     SubText="${NC}$1"
   fi
 
-  printf "\n${LightGreen}[INFO]${NoColor} $SubText\n"
+  UpdateTimeStamp
+  printf "${LightGreen}[INFO]${NoColor}  $TimeStamp $SubText\n"
 }
 
 # Basado en la info de https://profesorweb.es/2018/10/pausa-en-script-de-linux/
 Pause () {
-  printf "${Orange}[WAIT]${White} "
-  read -rsp $"Pulsa cualquier tecla o espera 5 segundos para continuar..." -n 1 -t 5;
+  UpdateTimeStamp
+  printf "${Orange}[WAIT]${NoColor}  $TimeStamp ${White}"
+
+  if [ -n "$1" ]; then
+    if [ "$1" -gt 0 ]; then
+      #Si se establece el tiempo, se lo pasamos al parámetro
+      read -rsp $"Pulsa cualquier tecla o espera $1 segundos para continuar..." -n 1 -t $1;
+    else
+      #Si se pone el parámetro a 0 se anula el tiempo y simplemente se espera a que pulse una tecla.
+      read -rsp $"Pulsa cualquier tecla para continuar..." -n 1;  
+    fi
+
+  else
+    #En cualquier otro caso, el tiempo por defecto es 5 segundos.
+    read -rsp $"Pulsa cualquier tecla o espera 5 segundos para continuar..." -n 1 -t 5;
+  fi
+
+  printf "\n"
 }
 
 #----------------------------------------------------------------------
@@ -201,7 +228,7 @@ Logo="   ___ _ __   ___   ___  _ __ (_)_  __\n \
                        |_|"
                        
 LogoVersion="$Logo v.$SnoopixVersion | www.snoopix.org \n"
-Copyright="\n\nCopyright (c) 2011-$CopyrightYear By Peke Soft, Ltd. Madrid | All Rights Reserved | www.pekesoft.com \
+Copyright="\n\nCopyright (c) 2011-$CopyrightYear By Peke Soft, Ltd. | Madrid | All Rights Reserved | www.pekesoft.com \
            \nLicensed under CC-NC-SA | Git: https://www.github.com/pekesoft/snoopix"
 Info="\n\nSnoopix es un sistema automatizado de administración y mantenimiento de sistemas Linux o compatibles, incluyendo macOS (BSD) y WSL."
 LogoCopyright="$LogoVersion $Copyright"

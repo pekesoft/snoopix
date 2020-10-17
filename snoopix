@@ -33,13 +33,11 @@ fi
 # CONFIG=/boot/config.txt
 # MyPath=./
 
-#
-# Interactive use loop
-#
-#. ./lib/snoopix-calcs
+#TODO: Agregar línea de comandos para autoejecución jerárquica.
 
-# set -x
-echo "$ScreenHeight, $ScreenWidth, $MenuHeight"
+PrintInfo "MainMenu" "Cargando menú principal. Height: $ScreenHeight | Width: $ScreenWidth | MenuHeight: $MenuHeight"
+Pause 2
+
 while true; do
   MenuChoice=$(whiptail --title "Menú Principal - Snoopix" --backtitle "$DebugInfo" \
     --menu "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" $ScreenHeight $ScreenWidth $MenuHeight \
@@ -80,16 +78,4 @@ while true; do
   else
     exit 1
   fi
-  # set +x
 done
-
-#  "                              _            \
-
-#"   ___ _ __   ___   ___  _ __ (_)_  __\n \
-# / __| '_ \ / _ \ / _ \| '_ \| \ \/ /\n \
-# \__ \ | | | (_) | (_) | |_) | |>  <\n \
-# |___/_| |_|\___/ \___/| .__/|_/_/\_\ \n \
-#                       |_| v.$SnoopixVersion | www.snoopix.org \n \
-#\nCopyright (c) 2011-2020 By Peke Soft, Ltd. Madrid | All Rights Reserved | Licensed under CC-NC-SA | www.pekesoft.com \
-#\n\nSnoopix es un sistema automatizado de administración y mantenimiento de equipos basados en Linux o compatibles, incluyendo macOS y WSL.\
-#\nPara más información consulta la documentación en: www.snoopix.org/manual

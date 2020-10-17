@@ -13,7 +13,20 @@
 
 clear
 PrintInfo "InfoScript" "Testeando el sistema..."
-PrintAd "InfoScript" " Screen Lines: $ScreenLines, Height: $ScreenHeight, Cols: $ScreenCols, Width: $ScreenWidth, MenuHeight: $MenuHeight"
-PrintInfo "Probando uno dos\n"
+
 Pause
+
+PrintAd "InfoScript" "Información de la Pantalla: Lines: $ScreenLines | Height: $ScreenHeight | Cols: $ScreenCols | Width: $ScreenWidth | MenuHeight: $MenuHeight"
+PrintInfo "Estos valores son necesarios para los ajustes dinámicos de los diálogos del sistema Snoopix.\n"
+
+Pause 10
+
+printf "\n"
+PrintAd "Testeando las salidas informativas del sistema con la información de depuración:"
+PrintAd "InfoScript" "$DebugInfo"
+PrintError "InfoScript" "$DebugInfo"
+PrintWarning "InfoScript" "$DebugInfo"
+PrintInfo "InfoScript" "$DebugInfo\n"
+
+Pause 0
 return 0

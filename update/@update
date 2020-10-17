@@ -1,0 +1,59 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------
+# [EN] System Info Script
+# [ES] Script de Información del Sistema.
+#----------------------------------------------------------------------
+# Copyright © 2020 by Peke Soft, Ltd. Licensed under CC-NC-SA
+#   v.1.0.0 Oct 2020 By ChuxMan. (chuxman@pekesoft.com)
+#----------------------------------------------------------------------
+# Muestra tanto información del sistema, software, hardware y snoopix.
+#----------------------------------------------------------------------
+. /srv/snoopix/lib/snoopix-framework
+
+PrintInfo "UpdateMenu" "Cargando menú de actualizaciones. Height: $ScreenHeight | Width: $ScreenWidth | MenuHeight: $MenuHeight"
+# Pause 2
+
+while true; do
+  MenuChoice=$(whiptail --title "Gestor de actualizaciones - Snoopix" --backtitle "$DebugInfo" \
+    --checklist "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" $ScreenHeight $ScreenWidth $MenuHeight \
+    --cancel-button "Volver al Menú Principal" --ok-button "Ejecutar actualizaciones" \
+    "Snoopix" "| Actualiza el sistema Snoopix desde GitHub." ON \
+    "Repositorios" "| Actualiza la base de datos de repositorios de paquetes." ON \
+    "Actualización " "| Actualiza los paquetes del sistema operativo desde el repositorio." ON \
+    "Autolimpieza" "| Elimina los ficheros innecesarios." ON \
+    "Purga" "| Elimina los ficheros de configuración de programas desinstalados." ON \
+    "Downloads" "| Elimina los paquetes en caché descargados por el gestor." ON \
+    "6 Limpieza" "| Limpieza de archivos obsoletos y del sistema operativo." ON \
+    "7 Seguridad" "| Configuración y mantenimiento de la seguridad del sistema." ON \
+    "8 Herramientas" "| Utilidades y herramientas del sistema." ON \
+    "9 Asistentes" "| Robots automatizados para la creación, configuración y automantenimiento de servicios." ON \
+    "D Desktop" "| Utilidades para Agregar, Eliminar y Administrar la gestión gráfica de Usuario." ON \
+    "U Update" "| Actualiza tanto el sistema de Snoopix como el Sistema Operativo y procede a un Clean Up." ON \
+    3>&1 1>&2 2>&3)
+  Return=$?
+  if [ $Return -eq 1 ]; then
+    clear 
+    return 0
+  elif [ $Return -eq 0 ]; then
+    PrintInfo "$MenuChoice"
+    Pause 0
+    case "$MenuChoice" in
+      0\ *) source ./status/@status ;;
+      1\ *) source ./info/@info ;;
+      2\ *) source ./setup/@setup ;;
+      3\ *) source ./system/@system ;;
+      4\ *) source ./services/@services ;;
+      5\ *) source ./backup/@backup ;;
+      6\ *) source ./cleanup/@cleanup ;;
+      7\ *) source ./security/@security ;;
+      8\ *) source ./tools/@tools ;;
+      9\ *) source ./wizards/@wizards ;;
+      D\ *) source ./desktop/@desktop ;;
+      U\ *) source ./update/@update ;;
+      *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;
+    esac || whiptail --msgbox "[ERROR] Hay un error tratando de cargar el menú, posiblemente no se encuentra disponible. Actualiza Snoopix. $FUN" 20 60 1
+  else
+    exit 1
+  fi
+done
