@@ -24,12 +24,8 @@ while true; do
     "Autolimpieza" "| Elimina los ficheros innecesarios." ON \
     "Purga" "| Elimina los ficheros de configuración de programas desinstalados." ON \
     "Downloads" "| Elimina los paquetes en caché descargados por el gestor." ON \
-    "6 Limpieza" "| Limpieza de archivos obsoletos y del sistema operativo." ON \
-    "7 Seguridad" "| Configuración y mantenimiento de la seguridad del sistema." ON \
-    "8 Herramientas" "| Utilidades y herramientas del sistema." ON \
-    "9 Asistentes" "| Robots automatizados para la creación, configuración y automantenimiento de servicios." ON \
-    "D Desktop" "| Utilidades para Agregar, Eliminar y Administrar la gestión gráfica de Usuario." ON \
-    "U Update" "| Actualiza tanto el sistema de Snoopix como el Sistema Operativo y procede a un Clean Up." ON \
+    "Upgrade" "| Comprueba a ver si hay una versión nueva del sistema operativo." ON \
+    "CheckDisk" "| Realiza una comprobación de estado de todas las unidades." ON \
     3>&1 1>&2 2>&3)
   Return=$?
   if [ $Return -eq 1 ]; then
