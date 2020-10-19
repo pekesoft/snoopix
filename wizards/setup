@@ -9,6 +9,23 @@
 #Comprobamos el Sistema Operativo y su versión.
 #TODO
 
+# Agregar el PATH de snoopix.
+# Basado en la info de https://www.sysadmit.com/2016/06/linux-anadir-ruta-al-path.html
+export PATH=$PATH:/opt/snoopix  # Instancia local
+export PATH=$PATH:/srv/snoopix  # Instancia de servidor. (Por defecto link simbólico a la instancia local.)
+
+PrintInfo "SnoopixSetup" "PATH actualizado: $PATH"
+
+# Comprobación de la instancia local.
+# Comprobar /opt/snoopix
+
+# Comprobación de la instancia de servidor.
+# Comprobar /srv/snoopix
+
+# Componentes mínimos del sistema. Utilizamos el framework para instalación multiplataforma.
+
+# Iniciar asistente de sistema básico (IP, nombre máquina, etc)
+
 #Comprobamos la existencia de GIT.
 echo "Introduce el nombre del paquete"
 read miprograma

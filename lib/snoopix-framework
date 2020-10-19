@@ -135,12 +135,15 @@ SystemVersion() {
   DebugInfo="Snoopix v$SnoopixVersion | $MachineName | $SystemType ($KernelVersion $Architecture) | $NAME $VERSION"
 }
 
+# Creación de timestamps para mensajes y logs.
 UpdateTimeStamp () {
   TimeStamp=$(date --rfc-3339='seconds')
   TimeStamp="[$TimeStamp] "
 }
 
+#----------------------------------------------------------------------
 # Herramientas para pintar avisos y mensajes en consola.
+#----------------------------------------------------------------------
 
 PrintAd () {
   if [ ! -z "$2" ]; then
@@ -205,6 +208,30 @@ Pause () {
   fi
 
   printf "\n"
+}
+
+# Sistema de Menús basados en Whiptail.
+
+SetMenuItems () {
+  MenuItems=$(echo -n $1)
+}
+
+SetMenu () {
+  # PrintInfo "MenuItems:\n"
+  # printf "$MenuItems\n"
+  # Pause 0
+  # eval ''
+  eval set -- "$MenuItems"
+  MenuSize=$(($#/2))
+  MenuHeight=$((25+MenuSize))
+  eval 'whiptail --title "$MenuTitle - Snoopix" --backtitle "$DebugInfo" \
+    --menu "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" $MenuHeight $ScreenWidth $MenuSize \
+    --cancel-button "Salir" --ok-button "Seleccionar"' $MenuItems
+}
+
+ShowMenu () {
+  MenuChoice=$(SetMenu 3>&1 1>&2 2>&3)
+  Return=$?
 }
 
 #----------------------------------------------------------------------

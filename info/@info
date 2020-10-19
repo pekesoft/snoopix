@@ -14,19 +14,48 @@
 clear
 PrintInfo "InfoScript" "Testeando el sistema..."
 
-Pause
+# Pause
 
 PrintAd "InfoScript" "Información de la Pantalla: Lines: $ScreenLines | Height: $ScreenHeight | Cols: $ScreenCols | Width: $ScreenWidth | MenuHeight: $MenuHeight"
 PrintInfo "Estos valores son necesarios para los ajustes dinámicos de los diálogos del sistema Snoopix.\n"
 
-Pause 10
+# Pause 10
 
 printf "\n"
 PrintAd "Testeando las salidas informativas del sistema con la información de depuración:"
 PrintAd "InfoScript" "$DebugInfo"
 PrintError "InfoScript" "$DebugInfo"
 PrintWarning "InfoScript" "$DebugInfo"
-PrintInfo "InfoScript" "$DebugInfo\n"
+PrintInfo "InfoScript" "$DebugInfo\n\n"
 
-Pause 0
+PrintAd "Ahora vamos a probar el menú dinámico."
+# Pause 0
+
+MenuTitle="Info"
+SetMenuItems '
+"Prueba 0" "| Corresponde a Prueba 0"
+"Prueba 1" "| Corresponde a Prueba 1"
+"Prueba 2" "| Corresponde a Prueba 2"
+"Prueba 3" "| Corresponde a Prueba 3"'
+# printf $MenuItems
+
+while true; do
+  # MenuChoice=$(ShowMenu 3>&1 1>&2 2>&3)
+  # Return=$?
+  ShowMenu
+  if [ $Return -eq 1 ]; then
+    clear 
+    exit 0
+  elif [ $Return -eq 0 ]; then
+    case "$MenuChoice" in
+      *0) whiptail --msgbox "Seleccionada opción 0" 20 60 1 ;; 
+      *1) whiptail --msgbox "Seleccionada opción 1" 20 60 1 ;;
+      *2) whiptail --msgbox "Seleccionada opción 2" 20 60 1 ;;
+      *3) whiptail --msgbox "Seleccionada opción 3" 20 60 1 ;;
+      *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;
+    esac || whiptail --msgbox "[ERROR] Hay un error tratando de cargar el menú, posiblemente no se encuentra disponible. Actualiza Snoopix.\n\n[Opción seleccionada]: $MenuChoice" 20 60 1
+  else
+    exit 1
+  fi
+done
 return 0

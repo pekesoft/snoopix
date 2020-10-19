@@ -35,27 +35,44 @@ fi
 
 #TODO: Agregar línea de comandos para autoejecución jerárquica.
 
-PrintInfo "MainMenu" "Cargando menú principal. Height: $ScreenHeight | Width: $ScreenWidth | MenuHeight: $MenuHeight"
-Pause 2
+# Depuración de menús.
+# PrintInfo "MainMenu" "Cargando menú principal. Height: $ScreenHeight | Width: $ScreenWidth | MenuHeight: $MenuHeight"
+# Pause 2
+
+MenuTitle="Menú Principal"
+SetMenuItems '
+"0 Status" "| Monitor del estado del sistema y servicios"
+"1 Información" "| Muestra toda la información del sistema y el hardware."
+"2 Setup" "| Configura tanto los aspectos básicos del sistema como de Snoopix."
+"3 Sistema" "| Administración y mantenimiento del Sistema Operativo y los servicios instalados."
+"4 Servicios" "| Instalador y Administrador de servicios."
+"5 Backup" "| Creación y mantenimiento de copias de seguridad."
+"6 Limpieza" "| Limpieza de archivos obsoletos y del sistema operativo."
+"7 Seguridad" "| Configuración y mantenimiento de la seguridad del sistema."
+"8 Herramientas" "| Utilidades y herramientas del sistema."
+"9 Asistentes" "| Robots automatizados para la creación, configuración y automantenimiento de servicios."
+"D Desktop" "| Utilidades para Agregar, Eliminar y Administrar la gestión gráfica de Usuario."
+"U Update" "| Actualiza tanto el sistema de Snoopix como el Sistema Operativo y procede a un Clean Up."'
 
 while true; do
-  MenuChoice=$(whiptail --title "Menú Principal - Snoopix" --backtitle "$DebugInfo" \
-    --menu "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" $ScreenHeight $ScreenWidth $MenuHeight \
-    --cancel-button "Salir" --ok-button "Seleccionar" \
-    "0 Status" "| Monitor del estado del sistema y servicios" \
-    "1 Información" "| Muestra toda la información del sistema y el hardware." \
-    "2 Setup" "| Configura tanto los aspectos básicos del sistema como de Snoopix." \
-    "3 Sistema" "| Administración y mantenimiento del Sistema Operativo y los servicios instalados." \
-    "4 Servicios" "| Instalador y Administrador de servicios." \
-    "5 Backup" "| Creación y mantenimiento de copias de seguridad." \
-    "6 Limpieza" "| Limpieza de archivos obsoletos y del sistema operativo." \
-    "7 Seguridad" "| Configuración y mantenimiento de la seguridad del sistema." \
-    "8 Herramientas" "| Utilidades y herramientas del sistema." \
-    "9 Asistentes" "| Robots automatizados para la creación, configuración y automantenimiento de servicios." \
-    "D Desktop" "| Utilidades para Agregar, Eliminar y Administrar la gestión gráfica de Usuario." \
-    "U Update" "| Actualiza tanto el sistema de Snoopix como el Sistema Operativo y procede a un Clean Up." \
-    3>&1 1>&2 2>&3)
-  Return=$?
+  ShowMenu
+  # MenuChoice=$(whiptail --title "Menú Principal - Snoopix" --backtitle "$DebugInfo" \
+  #   --menu "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" $ScreenHeight $ScreenWidth $MenuHeight \
+  #   --cancel-button "Salir" --ok-button "Seleccionar" \
+  #   "0 Status" "| Monitor del estado del sistema y servicios" \
+  #   "1 Información" "| Muestra toda la información del sistema y el hardware." \
+  #   "2 Setup" "| Configura tanto los aspectos básicos del sistema como de Snoopix." \
+  #   "3 Sistema" "| Administración y mantenimiento del Sistema Operativo y los servicios instalados." \
+  #   "4 Servicios" "| Instalador y Administrador de servicios." \
+  #   "5 Backup" "| Creación y mantenimiento de copias de seguridad." \
+  #   "6 Limpieza" "| Limpieza de archivos obsoletos y del sistema operativo." \
+  #   "7 Seguridad" "| Configuración y mantenimiento de la seguridad del sistema." \
+  #   "8 Herramientas" "| Utilidades y herramientas del sistema." \
+  #   "9 Asistentes" "| Robots automatizados para la creación, configuración y automantenimiento de servicios." \
+  #   "D Desktop" "| Utilidades para Agregar, Eliminar y Administrar la gestión gráfica de Usuario." \
+  #   "U Update" "| Actualiza tanto el sistema de Snoopix como el Sistema Operativo y procede a un Clean Up." \
+  #   3>&1 1>&2 2>&3)
+  # Return=$?
   if [ $Return -eq 1 ]; then
     clear 
     exit 0
