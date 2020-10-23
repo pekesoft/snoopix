@@ -213,24 +213,24 @@ Pause () {
 # Sistema de Menús basados en Whiptail.
 
 SetMenuItems () {
+  # Eliminamos los intros de la configuración de parámetros del whiptail.
   MenuItems=$(echo -n $1)
 }
 
 SetMenu () {
-  # PrintInfo "MenuItems:\n"
-  # printf "$MenuItems\n"
-  # Pause 0
-  # eval ''
+  # Calculamos el alto de la ventana dinámicamente.
   eval set -- "$MenuItems"
   MenuSize=$(($#/2))
   MenuHeight=$((25+MenuSize))
+
+  # Ejecutamos el menú
   eval 'whiptail --title "$MenuTitle - Snoopix" --backtitle "$DebugInfo" \
     --menu "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" $MenuHeight $ScreenWidth $MenuSize \
     --cancel-button "Salir" --ok-button "Seleccionar"' $MenuItems
 }
 
 ShowMenu () {
-  MenuChoice=$(SetMenu 3>&1 1>&2 2>&3)
+  MenuChoice=$(SetMenu "menu" $1 $2 $3 3>&1 1>&2 2>&3)
   Return=$?
 }
 

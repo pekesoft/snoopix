@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------
+# [EN] Satellite Info Script
+# [ES] Script de Información de Satélites.
+#----------------------------------------------------------------------
+# Copyright © 2020 by Peke Soft, Ltd. Licensed under CC-NC-SA
+#   v.1.0.0 Oct 2020 By ChuxMan. (chuxman@pekesoft.com)
+#----------------------------------------------------------------------
+# Gestor y visor de mapa mundial con la trayectoria de satélites.
+#----------------------------------------------------------------------
+. /srv/snoopix/lib/snoopix-framework
+. /srv/snoopix/lib/snoopix-installer
+
+# Basado en https://twitter.com/MrChuxMan/status/1314639924629569537 en el que se especifica la receta:
+# pip3 install termtrack
+# 
+# alias iss="termtrack -figmntxo 1 iss"
+# alias noaa15="termtrack -figmntxo 1 25338"
+# alias noaa18="termtrack -figmntxo 1 28654"
+# alias noaa19="termtrack -figmntxo 1 33591"
+
+AddSatellite () {
+
+}
+
+RemoveSatellite () {
+
+}
+
+ListSatellites () {
+
+}
+
+ShowSatellite () {
+    
+}

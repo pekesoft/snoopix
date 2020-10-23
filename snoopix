@@ -35,61 +35,42 @@ fi
 
 #TODO: Agregar línea de comandos para autoejecución jerárquica.
 
-# Depuración de menús.
-# PrintInfo "MainMenu" "Cargando menú principal. Height: $ScreenHeight | Width: $ScreenWidth | MenuHeight: $MenuHeight"
-# Pause 2
-
+# Menú principal de Snoopix. Portal de acceso a toda la funcionalidad.
 MenuTitle="Menú Principal"
 SetMenuItems '
-"0 Status" "| Monitor del estado del sistema y servicios"
-"1 Información" "| Muestra toda la información del sistema y el hardware."
-"2 Setup" "| Configura tanto los aspectos básicos del sistema como de Snoopix."
-"3 Sistema" "| Administración y mantenimiento del Sistema Operativo y los servicios instalados."
-"4 Servicios" "| Instalador y Administrador de servicios."
-"5 Backup" "| Creación y mantenimiento de copias de seguridad."
-"6 Limpieza" "| Limpieza de archivos obsoletos y del sistema operativo."
-"7 Seguridad" "| Configuración y mantenimiento de la seguridad del sistema."
-"8 Herramientas" "| Utilidades y herramientas del sistema."
-"9 Asistentes" "| Robots automatizados para la creación, configuración y automantenimiento de servicios."
-"D Desktop" "| Utilidades para Agregar, Eliminar y Administrar la gestión gráfica de Usuario."
-"U Update" "| Actualiza tanto el sistema de Snoopix como el Sistema Operativo y procede a un Clean Up."'
+"0 Status"        "| Monitor del estado del Sistema Operativo y servicios"
+"1 Información"   "| Muestra toda la información del Sistema Operativo y el hardware."
+"2 Setup"         "| Configura tanto los aspectos básicos del Sistema Operativo como de Snoopix."
+"3 Sistema"       "| Administración y mantenimiento del Sistema Operativo y los servicios instalados."
+"4 Servicios"     "| Instalador y Administrador de servicios."
+"5 Backup"        "| Creación y mantenimiento de copias de seguridad."
+"6 Limpieza"      "| Limpieza de archivos obsoletos y del Sistema Operativo."
+"7 Seguridad"     "| Configuración y mantenimiento de la seguridad del Sistema Operativo."
+"8 Herramientas"  "| Utilidades y herramientas del Sistema Operativo."
+"9 Asistentes"    "| Robots automatizados para la creación, configuración y automantenimiento de servicios."
+"D Desktop"       "| Utilidades para Agregar, Eliminar y Administrar la gestión gráfica de Usuario."
+"U Update"        "| Actualiza tanto el sistema de Snoopix como el Sistema Operativo y procede a un Clean Up."'
 
 while true; do
   ShowMenu
-  # MenuChoice=$(whiptail --title "Menú Principal - Snoopix" --backtitle "$DebugInfo" \
-  #   --menu "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" $ScreenHeight $ScreenWidth $MenuHeight \
-  #   --cancel-button "Salir" --ok-button "Seleccionar" \
-  #   "0 Status" "| Monitor del estado del sistema y servicios" \
-  #   "1 Información" "| Muestra toda la información del sistema y el hardware." \
-  #   "2 Setup" "| Configura tanto los aspectos básicos del sistema como de Snoopix." \
-  #   "3 Sistema" "| Administración y mantenimiento del Sistema Operativo y los servicios instalados." \
-  #   "4 Servicios" "| Instalador y Administrador de servicios." \
-  #   "5 Backup" "| Creación y mantenimiento de copias de seguridad." \
-  #   "6 Limpieza" "| Limpieza de archivos obsoletos y del sistema operativo." \
-  #   "7 Seguridad" "| Configuración y mantenimiento de la seguridad del sistema." \
-  #   "8 Herramientas" "| Utilidades y herramientas del sistema." \
-  #   "9 Asistentes" "| Robots automatizados para la creación, configuración y automantenimiento de servicios." \
-  #   "D Desktop" "| Utilidades para Agregar, Eliminar y Administrar la gestión gráfica de Usuario." \
-  #   "U Update" "| Actualiza tanto el sistema de Snoopix como el Sistema Operativo y procede a un Clean Up." \
-  #   3>&1 1>&2 2>&3)
-  # Return=$?
   if [ $Return -eq 1 ]; then
+    # El usuario ha pusado en salir
     clear 
     exit 0
   elif [ $Return -eq 0 ]; then
     case "$MenuChoice" in
-      0\ *) source ./status/@status ;;
-      1\ *) source ./info/@info ;;
-      2\ *) source ./setup/@setup ;;
-      3\ *) source ./system/@system ;;
-      4\ *) source ./services/@services ;;
-      5\ *) source ./backup/@backup ;;
-      6\ *) source ./cleanup/@cleanup ;;
-      7\ *) source ./security/@security ;;
-      8\ *) source ./tools/@tools ;;
-      9\ *) source ./wizards/@wizards ;;
-      D\ *) source ./desktop/@desktop ;;
-      U\ *) source ./update/@update ;;
+      0\ *) source /srv/snoopix/status/@status ;;
+      1\ *) source /srv/snoopix/info/@info ;;
+      2\ *) source /srv/snoopix/setup/@setup ;;
+      3\ *) source /srv/snoopix/system/@system ;;
+      4\ *) source /srv/snoopix/services/@services ;;
+      5\ *) source /srv/snoopix/backup/@backup ;;
+      6\ *) source /srv/snoopix/cleanup/@cleanup ;;
+      7\ *) source /srv/snoopix/security/@security ;;
+      8\ *) source /srv/snoopix/tools/@tools ;;
+      9\ *) source /srv/snoopix/wizards/@wizards ;;
+      D\ *) source /srv/snoopix/desktop/@desktop ;;
+      U\ *) source /srv/snoopix/update/@update ;;
       *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;
     esac || whiptail --msgbox "[ERROR] Hay un error tratando de cargar el menú, posiblemente no se encuentra disponible. Actualiza Snoopix. $FUN" 20 60 1
   else
