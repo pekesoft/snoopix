@@ -1,0 +1,73 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------
+# [EN] System Info Script
+# [ES] Script de Información del Sistema.
+#----------------------------------------------------------------------
+# Copyright © 2020 by Peke Soft, Ltd. Licensed under CC-NC-SA
+#   v.1.0.0 Oct 2020 By ChuxMan. (chuxman@pekesoft.com)
+#----------------------------------------------------------------------
+# Muestra tanto información del sistema, software, hardware y snoopix.
+#----------------------------------------------------------------------
+. /srv/snoopix/lib/snoopix-framework
+
+SysMonitor () {
+  bpytop
+}
+
+# DiskUseMonitor () {
+# 
+# }
+# 
+# ServicesMonitor () {
+# 
+# }
+# 
+
+PackageMonitor () {
+  PrintInfo "PackageMonitor" "Listado de librerías y aplicaciones instaladas"
+  dpkg -l
+  Pause
+}
+
+# PingMonitor () {
+# 
+# }
+# 
+# NetMap () {
+# 
+# }
+
+MenuTitle="Estado del Sistema"
+SetMenuItems '
+"0 Monitor"   "| Muestra el monitor de recursos (CPU, memoria, disco, red) y administrador de ejecución."
+"1 Espacio"   "| Muestra el uso de espacio de los dispositivos de almacenamiento montados."
+"2 Servicios" "| Muestra los servicios y su estado."
+"3 Paquetes"  "| Listado de paquetes instalados en el Sistema Operativo."
+"4 Ping"      "| Lanza un ping sobre una determinada IP."
+"5 Red"       "| Muestra un mapa de red."
+"Satélites"   "| Mapa de posicionamiento de satélites."'
+
+while true; do
+  # MenuChoice=$(ShowMenu 3>&1 1>&2 2>&3)
+  # Return=$?
+  ShowMenu
+  if [ $Return -eq 1 ]; then
+    clear 
+    exit 0
+  elif [ $Return -eq 0 ]; then
+    case "$MenuChoice" in
+      0\ *) SysMonitor ;; 
+      1\ *) DiskUseMonitor ;;
+      2\ *) ServicesMonitor ;;
+      3\ *) PackageMonitor ;;
+      4\ *) PingMonitor ;;
+      5\ *) NetMap ;;
+      Sat*) source /srv/snoopix/status/satellite ;;                  
+      *) whiptail --msgbox "[ERROR] Imposible reconocer la selección" 20 60 1 ;;
+    esac || whiptail --msgbox "[ERROR] Hay un error tratando de cargar el menú, posiblemente no se encuentra disponible. Actualiza Snoopix.\n\n[Opción seleccionada]: $MenuChoice" 20 60 1
+  else
+    exit 1
+  fi
+done
+return 0

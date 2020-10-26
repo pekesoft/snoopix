@@ -21,10 +21,10 @@ while true; do
     "Snoopix" "| Actualiza el sistema Snoopix desde GitHub." ON \
     "Repositorios" "| Actualiza la base de datos de repositorios de paquetes." ON \
     "Actualización " "| Actualiza los paquetes del sistema operativo desde el repositorio." ON \
+    "Upgrade" "| Comprueba a ver si hay una versión nueva del sistema operativo." ON \
     "Autolimpieza" "| Elimina los ficheros innecesarios." ON \
     "Purga" "| Elimina los ficheros de configuración de programas desinstalados." ON \
     "Downloads" "| Elimina los paquetes en caché descargados por el gestor." ON \
-    "Upgrade" "| Comprueba a ver si hay una versión nueva del sistema operativo." ON \
     "CheckDisk" "| Realiza una comprobación de estado de todas las unidades." ON \
     3>&1 1>&2 2>&3)
   Return=$?

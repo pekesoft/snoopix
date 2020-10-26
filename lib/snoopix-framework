@@ -220,20 +220,62 @@ SetMenuItems () {
 SetMenu () {
   # Calculamos el alto de la ventana dinámicamente.
   eval set -- "$MenuItems"
-  MenuSize=$(($#/2))
+  MenuSize=$(($#/$MenuParameters))
   MenuHeight=$((25+MenuSize))
 
   # Ejecutamos el menú
   eval 'whiptail --title "$MenuTitle - Snoopix" --backtitle "$DebugInfo" \
-    --menu "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" $MenuHeight $ScreenWidth $MenuSize \
+    --$MenuType "$LogoInfo \n\n\n\n                                 Bienvenid@ al menú principal. Elije una opción:\n\n" $MenuHeight $ScreenWidth $MenuSize \
     --cancel-button "Salir" --ok-button "Seleccionar"' $MenuItems
 }
 
 ShowMenu () {
-  MenuChoice=$(SetMenu "menu" $1 $2 $3 3>&1 1>&2 2>&3)
+  # [ES] Tipo de menú
+  MenuType="menu"
+
+  # [ES] Título y descripción
+  MenuTitle=$1
+  MenuDescription=$2
+
+  # [ES] Num. de parámetros (2 para Menús, 3 para CheckList y RadioList)
+  MenuParameters=2
+
+  # Lanzamos el menú y recuperamos los estados de salida
+  MenuChoice=$(SetMenu 3>&1 1>&2 2>&3)
   Return=$?
 }
 
+ShowCheckList () {
+  # [ES] Tipo de menú
+  MenuType="checklist"
+
+  # [ES] Título y descripción
+  MenuTitle=$1
+  MenuDescription=$2
+
+  # [ES] Num. de parámetros (2 para Menús, 3 para CheckList y RadioList)
+  MenuParameters=3
+
+  # Lanzamos el menú y recuperamos los estados de salida
+  MenuChoice=$(SetMenu 3>&1 1>&2 2>&3)
+  Return=$?
+}
+
+ShowRadioList () {
+  # [ES] Tipo de menú
+  MenuType="radiolist"
+
+  # [ES] Título y descripción
+  MenuTitle=$1
+  MenuDescription=$2
+
+  # [ES] Num. de parámetros (2 para Menús, 3 para CheckList y RadioList)
+  MenuParameters=3
+
+  # Lanzamos el menú y recuperamos los estados de salida
+  MenuChoice=$(SetMenu 3>&1 1>&2 2>&3)
+  Return=$?
+}
 #----------------------------------------------------------------------
 # Main Init Script
 #----------------------------------------------------------------------

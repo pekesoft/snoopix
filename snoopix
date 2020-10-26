@@ -19,6 +19,7 @@
 if [ -f /srv/snoopix/lib/snoopix-framework ]; then
   . /srv/snoopix/lib/snoopix-framework
 else
+  #TODO: Cambiar esto por la autoejecución del script de setup después de preguntar al usuario.
   # Little portion of ANSI colors constants defined in snoopix-framework
   Red='\033[0;31m'; Green='\033[0;32m'; NC='\033[0m'
 
